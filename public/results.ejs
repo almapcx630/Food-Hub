@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Food App</title>
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    </head>
+    <body>
+<main>
+        <h2>Food Hub Results</h2>
+        <form method="POST" action="/">
+            <div class="container">
+            <p>Input Food: <input name="food" /></p>
+            <button type="submit"><a class="waves-effect waves-light btn pink lighten-4"><i class="material-icons left">cake</i>Submit Food Again</button></a>
+        </form>
+        </div>
+        <p>The food you chose is <%= data.q %>. Delicious!</p>
+        <% console.log(data) %>
+        <h3><%= /* JSON.stringify(data, null, 4) */ %></h3>
+        
+        <% for (var i = 0; i < data.hits.length; i++) { %>
+        
+        <div class="row">
+          <div class="col s12 m7">
+            <div class="card">
+              <div class="card-image">
+                <img class="activator food-item" src="<%= data.hits[i].recipe.image %>">
+                <span class="card-title"><%= data.hits[i].recipe.label %></span>
+              </div>
+              <div class="card-content">
+                <p>Ingredients:</p>
+                <ol>
+                  <% var ingredientsArray =  data.hits[i].recipe.ingredients %>
+                  <% for (var j = 0; j < ingredientsArray.length; j++) { %>
+                    <li><%= ingredientsArray[j].text  %></li>
+                  <% } %>
+                </ol>
+              <p><%= data.hits[i].recipe.calories %> calories.</p>
+              </div>
+              <div class="card-action">
+                <a href="<%= data.hits[i].recipe.url %>">article</a>
+                <p>Made by: <%= data.hits[i].recipe.source %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+            
+        <% } %>
+</main>
+        <div class="footer">
+			&copy Hungry-Coders 2017
+		</div>
+		
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    </body>
+</html>
